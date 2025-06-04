@@ -1,3 +1,6 @@
-*.git
-*.md
+*.log
+*.class
 target/
+.idea/
+*.iml
+*.DS_Store

@@ -1,17 +1,15 @@
-FROM eclipse-temurin:17-jdk
+# Imagen base: Tomcat 10
+FROM tomcat:10.1-jdk21
 
-# Instala GlassFish
-ENV GLASSFISH_VERSION 6.2.5
-RUN apt-get update && apt-get install -y unzip curl && \
-    curl -L -o glassfish.zip https://download.eclipse.org/ee4j/glassfish/glassfish-${GLASSFISH_VERSION}.zip && \
-    unzip glassfish.zip && mv glassfish*/ /opt/glassfish && \
-    rm glassfish.zip
+# Eliminar apps por defecto (opcional)
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copia el WAR al dominio por defecto
-COPY TruequesTFG.war /opt/glassfish/glassfish/domains/domain1/autodeploy/
+# Copiar tu WAR a la carpeta webapps de Tomcat
+COPY Truekes.war /usr/local/tomcat/webapps/ROOT.war
 
-# Exponer el puerto estándar de GlassFish
+# Exponer el puerto
 EXPOSE 8080
 
-# Ejecuta GlassFish al arrancar
-CMD ["/opt/glassfish/glassfish/bin/asadmin", "start-domain", "-v"]
+# Comando de arranque
+CMD ["catalina.sh", "run"]
+
