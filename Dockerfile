@@ -1,7 +1,8 @@
+# Usa la imagen oficial de Payara Full
 FROM payara/server-full:latest
 
-# Copiar el archivo .war a la carpeta de despliegue automático
-COPY TruequesTFG.war $DEPLOY_DIR
+# Crea una carpeta temporal para copiar el WAR
+WORKDIR /opt/payara/deployments
 
-# Exponer el puerto por defecto de Payara
-EXPOSE 8080
+# Copia tu archivo WAR al directorio de despliegue de Payara
+COPY TruequesTFG.war ./trueques.war
