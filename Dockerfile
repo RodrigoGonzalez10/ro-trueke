@@ -1,15 +1,17 @@
 # Imagen base: Tomcat 10
 FROM tomcat:10.1-jdk21
 
-# Eliminar apps por defecto (opcional)
+# Eliminar aplicaciones por defecto (opcional)
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copiar tu WAR a la carpeta webapps de Tomcat
-COPY Truekes.war /usr/local/tomcat/webapps/ROOT.war
+# Copiar WAR
+COPY Trueques.war /usr/local/tomcat/webapps/ROOT.war
 
-# Exponer el puerto
+# Hacer que los logs de Tomcat salgan en consola (Railway puede verlos)
+RUN ln -sf /dev/stdout /usr/local/tomcat/logs/catalina.out
+
+# Exponer puerto
 EXPOSE 8080
 
-# Comando de arranque
+# Arrancar Tomcat
 CMD ["catalina.sh", "run"]
-
